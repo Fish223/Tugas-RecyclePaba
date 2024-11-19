@@ -52,8 +52,8 @@ class adapterRecView(private val listWayang: ArrayList<wayang>) : RecyclerView.A
             .into(holder._gambarWayang)
 
         holder._gambarWayang.setOnClickListener{
-//            Toast.makeText(holder.itemView.context,wayang.nama,Toast.LENGTH_LONG).show()
-            onItemClickCallBack.onItemClicked(listWayang[position])
+            Toast.makeText(holder.itemView.context,wayang.nama,Toast.LENGTH_LONG).show()
+//            onItemClickCallBack.onItemClicked(listWayang[position])
         }
     }
 
