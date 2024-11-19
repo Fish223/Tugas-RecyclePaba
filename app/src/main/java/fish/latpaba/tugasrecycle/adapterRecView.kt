@@ -11,9 +11,18 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 
-class adapterRecView(private val listWayang: ArrayList<wayang>) : RecyclerView
-.Adapter<adapterRecView.ListViewHolder> () {
-//    private lateinit var onItemClickcallback: OnItemClickCallback
+
+class adapterRecView(private val listWayang: ArrayList<wayang>) : RecyclerView.Adapter<adapterRecView.ListViewHolder> () {
+
+    private lateinit var onItemClickCallBack: OnItemClickCallBack
+
+    interface OnItemClickCallBack {
+        fun onItemClicked(data:wayang)
+    }
+
+    fun setOnItemClickCallback(onItemClickCallBack: OnItemClickCallBack) {
+        this.onItemClickCallBack = onItemClickCallBack
+    }
 
     inner class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var _namaWayang = itemView.findViewById<TextView>(R.id.namaWayang)
@@ -32,10 +41,6 @@ class adapterRecView(private val listWayang: ArrayList<wayang>) : RecyclerView
         return listWayang.size
     }
 
-//    fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback){
-//        this.onItemClickcallbak = onItemClickCallback
-//    }
-
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
         var wayang = listWayang[position]
         holder._namaWayang.setText(wayang.nama)
@@ -47,13 +52,9 @@ class adapterRecView(private val listWayang: ArrayList<wayang>) : RecyclerView
             .into(holder._gambarWayang)
 
         holder._gambarWayang.setOnClickListener{
-            Toast.makeText(holder.itemView.context,wayang.nama,Toast.LENGTH_LONG).show()
+//            Toast.makeText(holder.itemView.context,wayang.nama,Toast.LENGTH_LONG).show()
+            onItemClickCallBack.onItemClicked(listWayang[position])
         }
     }
-}
 
-//interface OnItemClickCallback {
-//    fun onItemClicked(data:wayang)
-//
-//
-//}
+}
